@@ -95,7 +95,8 @@ enum {
 enum {
     /* Gralloc perform enums
     */
-    GRALLOC_MODULE_PERFORM_CREATE_HANDLE_FROM_BUFFER = 0x080000001,
+    GRALLOC_MODULE_PERFORM_CREATE_HANDLE_FROM_BUFFER =
+                                    GRALLOC_MODULE_PERFORM_PRIVATE_START,
 };
 
 
