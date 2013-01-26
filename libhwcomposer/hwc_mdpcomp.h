@@ -144,7 +144,6 @@ class MDPComp {
     static int sMaxLayers;
     static bool sDebugLogs;
     static bool sIdleFallBack;
-    static bool sPreRotation;
 
 public:
     /* Handler to invoke frame redraw on Idle Timer expiry */
