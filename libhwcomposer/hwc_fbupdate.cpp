@@ -22,7 +22,6 @@
 #include <gralloc_priv.h>
 #include <fb_priv.h>
 #include "hwc_fbupdate.h"
-#include "external.h"
 
 namespace qhwc {
 
@@ -84,10 +83,6 @@ bool FBUpdateLowRes::configure(hwc_context_t *ctx,
         mDest = dest;
 
         ovutils::eMdpFlags mdpFlags = ovutils::OV_MDP_FLAGS_NONE;
-        if(ctx->mSecureMode) {
-            ovutils::setMdpFlags(mdpFlags,
-                    ovutils::OV_MDP_SECURE_OVERLAY_SESSION);
-        }
 
         ovutils::PipeArgs parg(mdpFlags,
                 info,
@@ -137,7 +132,7 @@ bool FBUpdateLowRes::draw(hwc_context_t *ctx, private_handle_t *hnd)
     overlay::Overlay& ov = *(ctx->mOverlay);
     ovutils::eDest dest = mDest;
     if (!ov.queueBuffer(hnd->fd, hnd->offset, dest)) {
-        ALOGE("%s: queueBuffer failed for external", __FUNCTION__);
+        ALOGE("%s: queueBuffer failed for FBUpdate", __FUNCTION__);
         ret = false;
     }
     return ret;
@@ -195,10 +190,6 @@ bool FBUpdateHighRes::configure(hwc_context_t *ctx,
         mDestRight = destR;
 
         ovutils::eMdpFlags mdpFlagsL = ovutils::OV_MDP_FLAGS_NONE;
-        if(ctx->mSecureMode) {
-            ovutils::setMdpFlags(mdpFlagsL,
-                    ovutils::OV_MDP_SECURE_OVERLAY_SESSION);
-        }
 
         ovutils::PipeArgs pargL(mdpFlagsL,
                 info,
