@@ -61,6 +61,8 @@ const int GRALLOC_HEAP_MASK  =  GRALLOC_USAGE_PRIVATE_ADSP_HEAP      |
                                 GRALLOC_USAGE_PRIVATE_CAMERA_HEAP;
 
 
+ANDROID_SINGLETON_STATIC_INSTANCE(AdrenoMemInfo);
+
 //Common functions
 static bool canFallback(int usage, bool triedSystem)
 {
@@ -95,6 +97,35 @@ static bool useUncached(int usage)
     return false;
 }
 
+//-------------- AdrenoMemInfo-----------------------//
+int AdrenoMemInfo::getStride(int width, int format)
+{
+    int stride = ALIGN(width, 32);
+    switch (format)
+    {
+        case HAL_PIXEL_FORMAT_YCrCb_420_SP_ADRENO:
+            stride = ALIGN(width, 32);
+            break;
+        case HAL_PIXEL_FORMAT_YCbCr_420_SP_TILED:
+            stride = ALIGN(width, 128);
+            break;
+        case HAL_PIXEL_FORMAT_NV12_ENCODEABLE:
+        case HAL_PIXEL_FORMAT_YCbCr_420_SP:
+        case HAL_PIXEL_FORMAT_YCrCb_420_SP:
+        case HAL_PIXEL_FORMAT_YV12:
+        case HAL_PIXEL_FORMAT_YCbCr_422_SP:
+        case HAL_PIXEL_FORMAT_YCrCb_422_SP:
+            stride = ALIGN(width, 16);
+            break;
+        case HAL_PIXEL_FORMAT_YCbCr_420_SP_VENUS:
+            stride = VENUS_Y_STRIDE(COLOR_FMT_NV12, width);
+            break;
+        default: break;
+    }
+    return stride;
+}
+
+//-------------- IAllocController-----------------------//
 sp<IAllocController> IAllocController::sController = NULL;
 sp<IAllocController> IAllocController::getInstance(bool useMasterHeap)
 {
@@ -353,7 +384,7 @@ size_t getBufferSizeAndDimensions(int width, int height, int format,
 {
     size_t size;
 
-    alignedw = ALIGN(width, 32);
+    alignedw = AdrenoMemInfo::getInstance().getStride(width, format);
     alignedh = ALIGN(height, 32);
     switch (format) {
         case HAL_PIXEL_FORMAT_RGBA_8888:
@@ -379,7 +410,6 @@ size_t getBufferSizeAndDimensions(int width, int height, int format,
             // The chroma plane is subsampled,
             // but the pitch in bytes is unchanged
             // The GPU needs 4K alignment, but the video decoder needs 8K
-            alignedw = ALIGN(width, 128);
             size  = ALIGN( alignedw * alignedh, 8192);
             size += ALIGN( alignedw * ALIGN(height/2, 32), 8192);
             break;
@@ -391,7 +421,6 @@ size_t getBufferSizeAndDimensions(int width, int height, int format,
                 ALOGE("w or h is odd for the YV12 format");
                 return -EINVAL;
             }
-            alignedw = ALIGN(width, 16);
             alignedh = height;
             if (HAL_PIXEL_FORMAT_NV12_ENCODEABLE == format) {
                 // The encoder requires a 2K aligned chroma offset.
@@ -409,11 +438,11 @@ size_t getBufferSizeAndDimensions(int width, int height, int format,
                 ALOGE("width is odd for the YUV422_SP format");
                 return -EINVAL;
             }
-            alignedw = ALIGN(width, 16);
             alignedh = height;
             size = ALIGN(alignedw * alignedh * 2, 4096);
             break;
         case HAL_PIXEL_FORMAT_YCbCr_420_SP_VENUS:
+            alignedh = VENUS_Y_SCANLINES(COLOR_FMT_NV12, height);
             size = VENUS_BUFFER_SIZE(COLOR_FMT_NV12, width, height);
             break;
         default:
