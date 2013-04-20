@@ -193,9 +193,14 @@ struct private_handle_t : public native_handle {
         // ints
         int     magic;
         int     flags;
+#ifdef QCOM_BSP_CAMERA_ABI_HACK
+        int     bufferType;
+#endif
         int     size;
         int     offset;
+#ifndef QCOM_BSP_CAMERA_ABI_HACK
         int     bufferType;
+#endif
         int     base;
 #ifdef QCOM_BSP
         int     offset_metadata;
@@ -230,8 +235,15 @@ struct private_handle_t : public native_handle {
 #ifdef QCOM_BSP
             fd_metadata(eFd),
 #endif
-            magic(sMagic),  flags(flags), size(size), offset(0),
-            bufferType(bufferType), base(0),
+            magic(sMagic),  flags(flags),
+#ifdef QCOM_BSP_CAMERA_ABI_HACK
+            bufferType(bufferType),
+#endif
+            size(size), offset(0),
+#ifndef QCOM_BSP_CAMERA_ABI_HACK
+            bufferType(bufferType),
+#endif
+            base(0),
 #ifdef QCOM_BSP
             offset_metadata(eOffset),
 #endif
