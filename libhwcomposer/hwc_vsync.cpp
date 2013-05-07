@@ -125,7 +125,7 @@ static void *vsync_loop(void *param)
                 ALOGE ("FATAL:%s:not able to read file:%s, %s", __FUNCTION__,
                        vsync_timestamp_fb0, strerror(errno));
                 close (fd_timestamp);
-                ctx->vstate.fakevsync = true;
+                continue;
             }
 
             // extract timestamp
@@ -136,7 +136,7 @@ static void *vsync_loop(void *param)
                 ALOGE ("FATAL: %s: vsync timestamp not in correct format: [%s]",
                        __FUNCTION__,
                        str);
-                ctx->vstate.fakevsync = true;
+                continue;
             }
 
         } else {
