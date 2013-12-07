@@ -126,8 +126,6 @@ int AdrenoMemInfo::getStride(int width, int format)
                 bpp = 3;
                 break;
             case HAL_PIXEL_FORMAT_RGB_565:
-            case HAL_PIXEL_FORMAT_RGBA_5551:
-            case HAL_PIXEL_FORMAT_RGBA_4444:
                 bpp = 2;
                 break;
             default: break;
