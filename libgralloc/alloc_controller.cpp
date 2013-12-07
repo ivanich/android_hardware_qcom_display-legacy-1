@@ -193,8 +193,7 @@ IonController::IonController()
     mIonAlloc = new IonAlloc();
 }
 
-int IonController::allocate(alloc_data& data, int usage,
-                            int compositionType)
+int IonController::allocate(alloc_data& data, int usage)
 {
     int ionFlags = 0;
     int ret;
@@ -294,8 +293,7 @@ PmemKernelController::~PmemKernelController()
 {
 }
 
-int PmemKernelController::allocate(alloc_data& data, int usage,
-                                   int compositionType)
+int PmemKernelController::allocate(alloc_data& data, int usage)
 {
     int ret = 0;
     bool adspFallback = false;
@@ -354,8 +352,7 @@ PmemAshmemController::~PmemAshmemController()
 {
 }
 
-int PmemAshmemController::allocate(alloc_data& data, int usage,
-                                   int compositionType)
+int PmemAshmemController::allocate(alloc_data& data, int usage)
 {
     int ret = 0;
     data.allocType = 0;
@@ -370,7 +367,7 @@ int PmemAshmemController::allocate(alloc_data& data, int usage,
     // If ADSP or SMI is requested use the kernel controller
     if(usage & (GRALLOC_USAGE_PRIVATE_ADSP_HEAP|
                 GRALLOC_USAGE_PRIVATE_SMI_HEAP)) {
-        ret = mPmemKernelCtrl->allocate(data, usage, compositionType);
+        ret = mPmemKernelCtrl->allocate(data, usage);
         if(ret < 0)
             ALOGE("%s: Failed to allocate ADSP/SMI memory", __func__);
         else
@@ -519,7 +516,7 @@ int alloc_buffer(private_handle_t **pHnd, int w, int h, int format, int usage)
     data.uncached = useUncached(usage);
     int allocFlags = usage;
 
-    int err = sAlloc->allocate(data, allocFlags, 0);
+    int err = sAlloc->allocate(data, allocFlags);
     if (0 != err) {
         ALOGE("%s: allocate failed", __FUNCTION__);
         return -ENOMEM;

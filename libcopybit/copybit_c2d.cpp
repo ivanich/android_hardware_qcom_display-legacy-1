@@ -1015,7 +1015,7 @@ static int get_temp_buffer(const bufferInfo& info, alloc_data& data)
         return COPYBIT_FAILURE;
     }
 
-    int err = sAlloc->allocate(data, allocFlags, 0);
+    int err = sAlloc->allocate(data, allocFlags);
     if (0 != err) {
         ALOGE("%s: allocate failed", __FUNCTION__);
         return COPYBIT_FAILURE;

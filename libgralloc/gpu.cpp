@@ -151,7 +151,7 @@ int gpu_context_t::gralloc_alloc_buffer(size_t size, int usage,
     }
     data.size = size;
     data.pHandle = (unsigned int) pHandle;
-    err = mAllocCtrl->allocate(data, usage, 0);
+    err = mAllocCtrl->allocate(data, usage);
 
     if (!err) {
 #ifdef QCOM_BSP
@@ -164,7 +164,7 @@ int gpu_context_t::gralloc_alloc_buffer(size_t size, int usage,
         eData.pHandle = data.pHandle;
         eData.align = getpagesize();
         int eDataUsage = GRALLOC_USAGE_PRIVATE_SYSTEM_HEAP;
-        int eDataErr = mAllocCtrl->allocate(eData, eDataUsage, 0);
+        int eDataErr = mAllocCtrl->allocate(eData, eDataUsage);
         ALOGE_IF(eDataErr, "gralloc failed for eDataErr=%s",
                                           strerror(-eDataErr));
 #endif

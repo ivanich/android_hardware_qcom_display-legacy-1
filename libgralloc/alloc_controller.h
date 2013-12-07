@@ -43,8 +43,7 @@ class IAllocController : public android::RefBase {
     /* Allocate using a suitable method
      * Returns the type of buffer allocated
      */
-    virtual int allocate(alloc_data& data, int usage,
-                         int compositionType) = 0;
+    virtual int allocate(alloc_data& data, int usage) = 0;
 
     virtual android::sp<IMemAlloc> getAllocator(int flags) = 0;
 
@@ -60,8 +59,7 @@ class IAllocController : public android::RefBase {
 class IonController : public IAllocController {
 
     public:
-    virtual int allocate(alloc_data& data, int usage,
-                         int compositionType);
+    virtual int allocate(alloc_data& data, int usage);
 
     virtual android::sp<IMemAlloc> getAllocator(int flags);
 
@@ -75,8 +73,7 @@ class IonController : public IAllocController {
 class PmemKernelController : public IAllocController {
 
     public:
-    virtual int allocate(alloc_data& data, int usage,
-                         int compositionType);
+    virtual int allocate(alloc_data& data, int usage);
 
     virtual android::sp<IMemAlloc> getAllocator(int flags);
 
@@ -94,8 +91,7 @@ class PmemKernelController : public IAllocController {
 class PmemAshmemController : public IAllocController {
 
     public:
-    virtual int allocate(alloc_data& data, int usage,
-                         int compositionType);
+    virtual int allocate(alloc_data& data, int usage);
 
     virtual android::sp<IMemAlloc> getAllocator(int flags);
 
