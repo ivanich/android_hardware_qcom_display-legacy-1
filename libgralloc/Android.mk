@@ -45,6 +45,10 @@ LOCAL_SRC_FILES               := alloc_controller.cpp
 ifeq ($(TARGET_USES_ION),true)
     LOCAL_SRC_FILES += ionalloc.cpp
     LOCAL_CFLAGS += -DUSE_ION
+    ifeq ($(BOARD_USES_PMEM_ADSP),true)
+        LOCAL_SRC_FILES           += pmemadspalloc.cpp
+        LOCAL_CFLAGS              += -DUSE_PMEM_ADSP
+    endif
 else
     LOCAL_SRC_FILES += ashmemalloc.cpp \
                        pmemalloc.cpp \
