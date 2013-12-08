@@ -147,7 +147,7 @@ inline bool OvMem::open(uint32_t numbufs,
                                 qdutils::MDP_V4_0) {
             allocFlags |= GRALLOC_USAGE_PRIVATE_MM_HEAP;
         } else {
-            allocFlags = GRALLOC_USAGE_PRIVATE_ADSP_HEAP;
+            allocFlags = GRALLOC_USAGE_PRIVATE_CAMERA_HEAP;
         }
         err = mAlloc->allocate(data, allocFlags, 0);
         if (err != 0) {

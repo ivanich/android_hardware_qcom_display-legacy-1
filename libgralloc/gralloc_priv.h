@@ -53,6 +53,8 @@ enum {
     GRALLOC_USAGE_PRIVATE_MM_HEAP         =       0x02000000,
     /* WRITEBACK heap is a carveout heap for writeback, can be secured*/
     GRALLOC_USAGE_PRIVATE_WRITEBACK_HEAP  =       0x04000000,
+    /* CAMERA heap is a carveout heap for camera, is not secured*/
+    GRALLOC_USAGE_PRIVATE_CAMERA_HEAP     =       0x08000000,
 
     /* Set this for allocating uncached memory (using O_DSYNC)
      * cannot be used with noncontiguous heaps */
@@ -103,6 +105,7 @@ enum {
 #endif
     GRALLOC_MODULE_PERFORM_GET_STRIDE,
 };
+
 
 #define INTERLACE_MASK 0x80
 #define S3D_FORMAT_MASK 0xFF000
