@@ -358,13 +358,7 @@ int PmemAshmemController::allocate(alloc_data& data, int usage)
 {
     int ret = 0;
     data.allocType = 0;
-
-    // Make buffers cacheable by default
-    data.uncached = false;
-
-    // Override if we explicitly need uncached buffers
-    if (usage & GRALLOC_USAGE_PRIVATE_UNCACHED)
-        data.uncached = true;
+    data.uncached = useUncached(usage);
 
     // If ADSP or SMI is requested use the kernel controller
     if(usage & (GRALLOC_USAGE_PRIVATE_ADSP_HEAP|
