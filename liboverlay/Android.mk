@@ -17,5 +17,6 @@ LOCAL_SRC_FILES := \
       overlayMdpRot.cpp \
       overlayMdssRot.cpp \
       pipes/overlayGenPipe.cpp
+LOCAL_GCC                     := true
 
 include $(BUILD_SHARED_LIBRARY)

@@ -18,6 +18,7 @@ LOCAL_C_INCLUDES := \
         frameworks/base/opengl/include/GLES2
 LOCAL_SHARED_LIBRARIES := $(common_libs) libGLESv2 libhwui
 LOCAL_SRC_FILES        := tilerenderer.cpp
+LOCAL_GCC              := true
 
 include $(BUILD_SHARED_LIBRARY)
 endif

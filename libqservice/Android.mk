@@ -15,5 +15,6 @@ LOCAL_SRC_FILES               := QService.cpp \
 LOCAL_COPY_HEADERS_TO         := $(common_header_export_path)
 LOCAL_COPY_HEADERS            := IQService.h \
                                  IQClient.h 
+LOCAL_GCC                     := true
 
 include $(BUILD_SHARED_LIBRARY)

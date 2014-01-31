@@ -10,5 +10,6 @@ LOCAL_SHARED_LIBRARIES        := $(common_libs) liboverlay
 LOCAL_CFLAGS                  := $(common_flags) -DLOG_TAG=\"qdexternal\"
 LOCAL_ADDITIONAL_DEPENDENCIES := $(common_deps)
 LOCAL_SRC_FILES               := external.cpp
+LOCAL_GCC                     := true
 
 include $(BUILD_SHARED_LIBRARY)

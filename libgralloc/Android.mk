@@ -28,6 +28,7 @@ LOCAL_ADDITIONAL_DEPENDENCIES := $(common_deps) $(kernel_deps)
 LOCAL_SRC_FILES               := gpu.cpp gralloc.cpp framebuffer.cpp mapper.cpp
 LOCAL_COPY_HEADERS_TO         := $(common_header_export_path)
 LOCAL_COPY_HEADERS            := gralloc_priv.h 
+LOCAL_GCC                     := true
 
 include $(BUILD_SHARED_LIBRARY)
 
@@ -49,5 +50,6 @@ ifeq ($(BOARD_USES_PMEM_ADSP),true)
     LOCAL_SRC_FILES           += pmemalloc.cpp
     LOCAL_CFLAGS              += -DUSE_PMEM_ADSP
 endif
+LOCAL_GCC                     := true
 
 include $(BUILD_SHARED_LIBRARY)

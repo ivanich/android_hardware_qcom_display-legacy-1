@@ -9,5 +9,6 @@ LOCAL_SHARED_LIBRARIES        := liblog libcutils
 LOCAL_CFLAGS                  := $(common_flags) -DLOG_TAG=\"qdgenlock\"
 LOCAL_ADDITIONAL_DEPENDENCIES := $(common_deps)
 LOCAL_SRC_FILES               := genlock.cpp
+LOCAL_GCC                     := true
 
 include $(BUILD_SHARED_LIBRARY)

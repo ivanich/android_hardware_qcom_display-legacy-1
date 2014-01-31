@@ -11,6 +11,7 @@ LOCAL_ADDITIONAL_DEPENDENCIES := $(common_deps)
 LOCAL_SRC_FILES               := profiler.cpp mdp_version.cpp \
                                  idle_invalidator.cpp \
                                  comptype.cpp
+LOCAL_GCC                     := true
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
@@ -26,4 +27,5 @@ LOCAL_CFLAGS                    := $(common_flags)
 LOCAL_CFLAGS                    += -DLOG_TAG=\"DisplayMetaData\"
 LOCAL_MODULE_TAGS               := optional
 LOCAL_MODULE                    := libqdMetaData
+LOCAL_GCC                       := true
 include $(BUILD_SHARED_LIBRARY)

@@ -21,5 +21,6 @@ LOCAL_SRC_FILES               := hwc.cpp          \
                                  hwc_mdpcomp.cpp  \
                                  hwc_copybit.cpp  \
                                  hwc_qclient.cpp
+LOCAL_GCC                     := true
 
 include $(BUILD_SHARED_LIBRARY)
