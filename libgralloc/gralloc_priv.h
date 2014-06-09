@@ -63,6 +63,10 @@ enum {
      * and may need to be moved if the gralloc API changes
      */
     GRALLOC_USAGE_PRIVATE_UNSYNCHRONIZED  =       0X04000000,
+    /* Buffer content should be displayed on an primary display only */
+    GRALLOC_USAGE_PRIVATE_INTERNAL_ONLY =         0x04000000,
+    /* This flag is used for SECURE display usecase */
+    GRALLOC_USAGE_PRIVATE_SECURE_DISPLAY  =       0x00002000,
 #endif
 
     /* CAMERA heap is a carveout heap for camera, is not secured*/
